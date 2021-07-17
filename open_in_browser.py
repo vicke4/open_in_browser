@@ -52,14 +52,14 @@ class OpenInBrowser(sublime_plugin.ViewEventListener):
                 except:
                     status = 99
             elif platform == 'windows':
-                status = os.system('start "{browser}" {url}'.format(browser=browser, url=url))
+                status = subprocess.call('start "{browser}" {url}'.format(browser=browser, url=url), shell=True)
         else:
             if platform == 'osx':
                 status = os.system("open '{url}'".format(url=url))
             elif platform == 'linux':
                 status = os.system("xdg-open '{url}'".format(url=url))
             elif platform == 'windows':
-                status = os.system("start {url}".format(url=url))
+                status = subprocess.call("start {url}".format(url=url), shell=True)
 
         if status > 0:
             webbrowser.open(url)
